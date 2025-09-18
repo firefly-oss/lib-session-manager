@@ -1,0 +1,104 @@
+# Session Manager Configuration
+firefly:
+  session-manager:
+    enabled: true
+    session-timeout-minutes: 30
+    max-concurrent-sessions: 5
+    session-validation-enabled: true
+    auto-filter:
+      enabled: true
+    cleanup:
+      enabled: true
+      interval-minutes: 10
+      grace-period-minutes: 5
+    security:
+      ip-validation-enabled: false
+      user-agent-validation-enabled: false
+      max-idle-time-minutes: 60
+      hijacking-protection-enabled: true
+    cache:
+      l1:
+        maximum-size: 10000
+        expire-after-write: 30
+        expire-after-access: 15
+      l2:
+        enabled: true
+        ttl-minutes: 60
+        key-prefix: "firefly:session:"
+    client:
+      customer-api-base-path: "http://localhost:8080/customer-api"
+      contract-api-base-path: "http://localhost:8080/contract-api"
+      product-api-base-path: "http://localhost:8080/product-api"
+      reference-master-data-api-base-path: "http://localhost:8080/reference-api"
+
+# Resilience4j Configuration
+resilience4j:
+  circuitbreaker:
+    instances:
+      customer-profile-service:
+        register-health-indicator: true
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5s
+        failure-rate-threshold: 50
+        event-consumer-buffer-size: 10
+      contract-service:
+        register-health-indicator: true
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5s
+        failure-rate-threshold: 50
+        event-consumer-buffer-size: 10
+      product-service:
+        register-health-indicator: true
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5s
+        failure-rate-threshold: 50
+        event-consumer-buffer-size: 10
+  retry:
+    instances:
+      customer-profile-service:
+        max-attempts: 3
+        wait-duration: 1s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+      contract-service:
+        max-attempts: 3
+        wait-duration: 1s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+      product-service:
+        max-attempts: 3
+        wait-duration: 1s
+        enable-exponential-backoff: true
+        exponential-backoff-multiplier: 2
+
+# Logging Configuration
+logging:
+  level:
+    com.firefly.common.auth.session: DEBUG
+    io.github.resilience4j: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss} - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+
+# Management and Monitoring
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: always
+  metrics:
+    export:
+      prometheus:
+        enabled: true

@@ -1,0 +1,72 @@
+{
+  "properties": [
+    {
+      "name": "firefly.session-manager.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable or disable the session manager.",
+      "defaultValue": true
+    },
+    {
+      "name": "firefly.session-manager.session-timeout-minutes",
+      "type": "java.lang.Integer",
+      "description": "Session timeout in minutes.",
+      "defaultValue": 30
+    },
+    {
+      "name": "firefly.session-manager.max-concurrent-sessions",
+      "type": "java.lang.Integer",
+      "description": "Maximum number of concurrent sessions per user.",
+      "defaultValue": 5
+    },
+    {
+      "name": "firefly.session-manager.cache.l1.maximum-size",
+      "type": "java.lang.Long",
+      "description": "Maximum number of entries in L1 cache.",
+      "defaultValue": 10000
+    },
+    {
+      "name": "firefly.session-manager.cache.l1.expire-after-write",
+      "type": "java.lang.Long",
+      "description": "Expire after write time in minutes for L1 cache.",
+      "defaultValue": 30
+    },
+    {
+      "name": "firefly.session-manager.cache.l1.expire-after-access",
+      "type": "java.lang.Long",
+      "description": "Expire after access time in minutes for L1 cache.",
+      "defaultValue": 15
+    },
+    {
+      "name": "firefly.session-manager.cache.l2.enabled",
+      "type": "java.lang.Boolean",
+      "description": "Enable L2 (Redis) cache.",
+      "defaultValue": true
+    },
+    {
+      "name": "firefly.session-manager.cache.l2.ttl-minutes",
+      "type": "java.lang.Long",
+      "description": "TTL for L2 cache entries in minutes.",
+      "defaultValue": 60
+    },
+    {
+      "name": "firefly.session-manager.client.customer-api-base-path",
+      "type": "java.lang.String",
+      "description": "Base path for customer API."
+    },
+    {
+      "name": "firefly.session-manager.client.contract-api-base-path",
+      "type": "java.lang.String",
+      "description": "Base path for contract API."
+    },
+    {
+      "name": "firefly.session-manager.client.product-api-base-path",
+      "type": "java.lang.String",
+      "description": "Base path for product API."
+    },
+    {
+      "name": "firefly.session-manager.client.reference-master-data-api-base-path",
+      "type": "java.lang.String",
+      "description": "Base path for reference master data API."
+    }
+  ]
+}
